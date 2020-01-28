@@ -1,0 +1,84 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Nest MEAN Server",
+  "author": "Nartc",
+  "license": "MIT",
+  "scripts": {
+    "format": "prettier --write \"**/*.ts\"",
+    "start": "ts-node -r tsconfig-paths/register src/main.ts",
+    "start:dev": "tsc-watch -p tsconfig.build.json --onSuccess \"node dist/src/main.js\"",
+    "prestart:prod": "rm -rf dist && tsc -p ./tsconfig.json",
+    "start:prod": "node dist/src/main.js",
+    "start:hmr": "node dist/server",
+    "test": "jest",
+    "test:cov": "jest --coverage",
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "webpack": "webpack --config webpack.config.js",
+    "postinstall": "tsc -p ./tsconfig.json",
+    "mongo:local": "mongod"
+  },
+  "dependencies": {
+    "@nestjs/common": "6.5.3",
+    "@nestjs/core": "6.5.3",
+    "@nestjs/mongoose": "6.1.2",
+    "@nestjs/passport": "6.1.0",
+    "@nestjs/platform-express": "^6.5.3",
+    "@nestjs/swagger": "3.1.0",
+    "@typegoose/typegoose": "^6.2.2",
+    "automapper-nartc": "3.0.18",
+    "bcryptjs": "2.4.3",
+    "config": "3.2.2",
+    "jsonwebtoken": "8.5.1",
+    "lodash": "4.17.15",
+    "mongoose": "5.7.5",
+    "passport": "0.4.0",
+    "passport-jwt": "4.0.0",
+    "reflect-metadata": "0.1.13",
+    "rxjs": "6.5.2",
+    "swagger-ui-express": "^4.0.7",
+    "typegoose": "5.9.0",
+    "typescript": "3.5.3"
+  },
+  "resolutions": {
+    "@types/express": "4.16.0",
+    "@types/passport": "0.4.7"
+  },
+  "devDependencies": {
+    "@nestjs/testing": "6.5.3",
+    "@types/bcryptjs": "2.4.2",
+    "@types/config": "0.0.34",
+    "@types/express": "4.17.0",
+    "@types/jest": "24.0.17",
+    "@types/jsonwebtoken": "8.3.3",
+    "@types/lodash": "4.14.137",
+    "@types/mongoose": "5.5.12",
+    "@types/node": "12.7.2",
+    "@types/passport": "1.0.0",
+    "@types/passport-jwt": "3.0.1",
+    "@types/supertest": "2.0.8",
+    "jest": "24.9.0",
+    "nodemon": "1.19.1",
+    "prettier": "1.18.2",
+    "supertest": "4.0.2",
+    "ts-jest": "24.0.2",
+    "ts-loader": "6.0.4",
+    "ts-node": "8.3.0",
+    "tsconfig-paths": "3.8.0",
+    "tslint": "5.18.0",
+    "tsc-watch": "2.4.0"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "rootDir": "src",
+    "testRegex": ".spec.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "coverageDirectory": "../coverage"
+  }
+}
