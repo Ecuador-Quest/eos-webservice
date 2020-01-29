@@ -38,7 +38,6 @@ export class AppModule {
 
     private static normalizePort(param: number | string): number | string {
         const portNumber: number = typeof param === 'string' ? parseInt(param, 10) : param;
-        if (isNaN(portNumber)) return param;
-        else if (portNumber >= 0) return portNumber;
+        if (isNaN(portNumber)) { return param; } else if (portNumber >= 0) { return portNumber; }
     }
 }

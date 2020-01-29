@@ -1,4 +1,4 @@
-# server
+# EOS Ecuador CORE
 
 ## Description
 
@@ -36,3 +36,10 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+
+
+## Information 
+
+[Nestjs - Typegoose](https://nartc.netlify.com/blogs/nestjs-typegoose/) 
+
+[CouChau Tran - youtube channel ](https://www.youtube.com/watch?v=Tj_MMY15g6w&list=PLVmX3uPQtp3uRu30YKw0v2VIPgZo45FUD)

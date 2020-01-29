@@ -7,32 +7,33 @@ import {buildSchema} from '@typegoose/typegoose';
 export class BaseModelVm {
     @ApiModelPropertyOptional({ type: String, format: 'date-time' })
     @Expose()
-    createdAt?: Date;
+    createdAt?: number;
 
     @ApiModelPropertyOptional({ type: String, format: 'date-time' })
     @Expose()
-    updatedAt?: Date;
+    updatedAt?: number;
 
-    @ApiModelPropertyOptional() 
+    @ApiModelPropertyOptional()
     @Expose()
     id?: string;
+
 }
 
+// tslint:disable-next-line:max-classes-per-file
 export abstract class BaseModel<T> extends Typegoose {
-    @prop()
+    @prop({default:  new Date().getTime()})
     @ApiModelPropertyOptional({ type: String, format: 'date-time' })
     @Expose()
-    createdAt: Date;
+    createdAt: number;
 
-    @prop()
+    @prop({default:  new Date().getTime()})
     @ApiModelPropertyOptional({ type: String, format: 'date-time' })
     @Expose()
-    updatedAt: Date;
+    updatedAt: number;
 
     @ApiModelPropertyOptional()
     @Expose()
     id: string;
-
     static get modelName(): string {
         return this.name;
     }

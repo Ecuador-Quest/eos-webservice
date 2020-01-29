@@ -1,9 +1,9 @@
 import { Types } from 'mongoose';
 import { InstanceType, ModelType, Typegoose } from 'typegoose';
 import { AutoMapper, Constructable } from 'automapper-nartc';
-import {DocumentType} from '@typegoose/typegoose';
 import {MongoError} from 'mongodb';
 import {InternalServerErrorException} from '@nestjs/common';
+import {Observable} from 'rxjs';
 
 export abstract class BaseService<T extends Typegoose> {
     protected _model: ModelType<T>;
@@ -41,6 +41,10 @@ export abstract class BaseService<T extends Typegoose> {
         return this._model.find(filter).exec();
     }
 
+    // tslint:disable-next-line:no-shadowed-variable
+    // public query<T>(filter = {} ): Observable<T[]>{
+    //
+    // }
     async findOne(filter = {}): Promise<InstanceType<T>> {
         try {
         return this._model.findOne(filter).exec();
@@ -50,7 +54,7 @@ export abstract class BaseService<T extends Typegoose> {
     }
 
     async findById(id: string): Promise<InstanceType<T>> {
-        try{
+        try {
         return this._model.findById(this.toObjectId(id)).exec();
         } catch (e) {
             BaseService.throwMongoError(e);
@@ -58,7 +62,7 @@ export abstract class BaseService<T extends Typegoose> {
     }
 
     async create(item: InstanceType<T>): Promise<InstanceType<T>> {
-        try{
+        try {
         return this._model.create(item);
         } catch (e) {
             BaseService.throwMongoError(e);
@@ -66,7 +70,7 @@ export abstract class BaseService<T extends Typegoose> {
     }
 
     async delete(id: string): Promise<InstanceType<T>> {
-        try{
+        try {
             return this._model.findByIdAndRemove(this.toObjectId(id)).exec();
         } catch (e) {
             BaseService.throwMongoError(e);
@@ -74,7 +78,7 @@ export abstract class BaseService<T extends Typegoose> {
     }
 
     async update(id: string, item: InstanceType<T>): Promise<InstanceType<T>> {
-        try{
+        try {
         return this._model.findByIdAndUpdate(this.toObjectId(id), item, { new: true }).exec();
         } catch (e) {
             BaseService.throwMongoError(e);
@@ -82,7 +86,7 @@ export abstract class BaseService<T extends Typegoose> {
     }
 
     async clearCollection(filter = {}): Promise<{ ok?: number; n?: number; }> {
-        try{
+        try {
         return this._model.deleteMany(filter).exec();
         } catch (e) {
             BaseService.throwMongoError(e);
