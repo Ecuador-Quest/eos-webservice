@@ -8,13 +8,14 @@ async function bootstrap() {
     const hostDomain = AppModule.isDev ? `${AppModule.host}:${AppModule.port}` : AppModule.host;
 
     const swaggerOptions = new DocumentBuilder()
-        .setTitle('EOS - REST SERVICES')
+        .setTitle('EOS - Web Service')
         .setDescription('API Documentation')
-        .setVersion('1.0.0')
+        .setVersion('0.0.1')
         .setHost(hostDomain.split('//')[1])
         .setSchemes(AppModule.isDev ? 'http' : 'https')
         .setBasePath('/api')
         .addBearerAuth('Authorization', 'header')
+        .addTag('Technologies', 'Node - NestJs, Rxjs, MongoDB, Swagger, Passport - JWT')
         .build();
 
     const swaggerDoc = SwaggerModule.createDocument(app, swaggerOptions);

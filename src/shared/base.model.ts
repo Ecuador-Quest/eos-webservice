@@ -1,8 +1,7 @@
-import { ApiModelPropertyOptional } from '@nestjs/swagger';
-import {Schema, SchemaOptions} from 'mongoose';
-import {Typegoose, prop, InstanceType} from 'typegoose';
+import {ApiModelProperty, ApiModelPropertyOptional} from '@nestjs/swagger';
+import { SchemaOptions} from 'mongoose';
+import {Typegoose, prop} from 'typegoose';
 import { Expose } from 'class-transformer';
-import {buildSchema} from '@typegoose/typegoose';
 
 export class BaseModelVm {
     @ApiModelPropertyOptional({ type: String, format: 'date-time' })
@@ -30,6 +29,11 @@ export abstract class BaseModel<T> extends Typegoose {
     @ApiModelPropertyOptional({ type: String, format: 'date-time' })
     @Expose()
     updatedAt: number;
+
+    @prop({default:  true })
+    @ApiModelProperty({ type:  Boolean })
+    @Expose()
+    DocumentStatus: boolean;
 
     @ApiModelPropertyOptional()
     @Expose()

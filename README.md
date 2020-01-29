@@ -1,4 +1,4 @@
-# NestJS Tutorial Repository
+#EOS web service
 
 Repository will be separated into `server` and `client` directory for **NestJS** backend and **Angular** frontend resepctively. 
 
@@ -6,6 +6,7 @@ Repository will be separated into `server` and `client` directory for **NestJS**
 - [x] Client repository
 - [x] Docker support
 - [x] Hook up Server and Client
+
 
 ## Server-side (NestJS)
 
@@ -36,3 +37,51 @@ Docker is supported.
 - **Note**: Angular application will be served by NGINX on `localhost`; Nest application will be running on `localhost:3000`; **cAdvisor** which monitors our containers will be running on `localhost:8080`. Again, it's worthwhile to explore the Dockerfile in both `client` and `server` directory; also `nginx.conf` and `docker-compose.yml` to get the gist of how Docker and Docker Compose work.
 
 P.S: Pull Requests, Contributions are most definitely welcomed :)
+
+
+# EOS Ecuador CORE
+
+## Description
+
+Nest MEAN Server
+
+## Installation
+
+```bash
+$ npm install
+```
+
+## Running the app
+
+```bash
+# development
+$ npm run start
+
+# watch mode
+$ npm run start:dev
+
+# production mode
+npm run start:prod
+```
+
+## Test
+
+```bash
+# unit tests
+$ npm run test
+
+# e2e tests
+$ npm run test:e2e
+
+# test coverage
+$ npm run test:cov
+```
+
+
+
+## Information 
+
+[Nestjs - Typegoose](https://nartc.netlify.com/blogs/nestjs-typegoose/) 
+
+[CouChau Tran - youtube channel ](https://www.youtube.com/watch?v=Tj_MMY15g6w&list=PLVmX3uPQtp3uRu30YKw0v2VIPgZo45FUD)
+
