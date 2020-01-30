@@ -6,7 +6,7 @@ import {InternalServerErrorException} from '@nestjs/common';
 import {Observable} from 'rxjs';
 
 export abstract class BaseService<T extends Typegoose> {
-    protected _model: ModelType<T>;
+    protected _model: ModelType< T>;
     protected _mapper: AutoMapper;
 
     private get modelName(): string {

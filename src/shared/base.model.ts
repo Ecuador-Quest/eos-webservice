@@ -11,10 +11,10 @@ export class BaseModelVm {
     @ApiModelPropertyOptional({ type: String, format: 'date-time' })
     @Expose()
     updatedAt?: number;
-
-    @ApiModelPropertyOptional()
-    @Expose()
-    id?: string;
+    //
+    // @ApiModelPropertyOptional()
+    // @Expose()
+    // id?: string;
 
 }
 
@@ -29,11 +29,6 @@ export abstract class BaseModel<T> extends Typegoose {
     @ApiModelPropertyOptional({ type: String, format: 'date-time' })
     @Expose()
     updatedAt: number;
-
-    @prop({default:  true })
-    @ApiModelProperty({ type:  Boolean })
-    @Expose()
-    DocumentStatus: boolean;
 
     @ApiModelPropertyOptional()
     @Expose()

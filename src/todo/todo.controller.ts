@@ -92,14 +92,14 @@ export class TodoController {
         }
     }
 
-    @Put()
+    @Put(':id')
     // @Roles(UserRole.Admin, UserRole.User)
     // @UseGuards(AuthGuard('jwt'), RolesGuard)
     @ApiOkResponse({ type: TodoVm })
     @ApiBadRequestResponse({ type: ApiException })
     @ApiOperation(GetOperationId(Todo.modelName, 'Update'))
-    async update(@Body() vm: TodoVm): Promise<TodoVm> {
-        const { id, content, level, isCompleted } = vm;
+    async update(@Param('id') id: string, @Body() vm: TodoVm): Promise<TodoVm> {
+        const {  content, level, isCompleted } = vm;
 
         if (!vm || !id) {
             throw new HttpException('Missing parameters', HttpStatus.BAD_REQUEST);
