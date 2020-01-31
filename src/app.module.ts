@@ -8,6 +8,8 @@ import { SharedModule } from './shared/shared.module';
 import { TodoModule } from './todo/todo.module';
 import { UserModule } from './user/user.module';
 import { AvailabilityModule } from './availability/availability.module';
+import { InvoiceModule } from './invoice/invoice.module';
+import { AgencyModule } from './agency/agency.module';
 
 @Module({
     imports: [SharedModule, MongooseModule.forRootAsync({
@@ -21,7 +23,7 @@ import { AvailabilityModule } from './availability/availability.module';
             useCreateIndex: true,
         }),
         inject: [ConfigurationService],
-    }), UserModule, TodoModule, AvailabilityModule],
+    }), UserModule, TodoModule, AvailabilityModule, InvoiceModule, AgencyModule],
     controllers: [AppController],
     providers: [AppService],
 })

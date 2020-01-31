@@ -11,10 +11,10 @@ export class BaseModelVm {
     @ApiModelPropertyOptional({ type: String, format: 'date-time' })
     @Expose()
     updatedAt?: number;
-    //
-    // @ApiModelPropertyOptional()
-    // @Expose()
-    // id?: string;
+
+    @ApiModelPropertyOptional()
+    @Expose()
+    id?: string;
 
 }
 

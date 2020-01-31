@@ -2,6 +2,7 @@ import {BaseModel, schemaOptions} from '../../base.model';
 import {DocumentStatus} from '../../configuration/documentStatus.enum';
 import {InstanceType, ModelType, prop} from 'typegoose';
 import { Expose } from 'class-transformer';
+import {TodoLevel} from "../../../todo/models/todo-level.enum";
 
 export class Catalogue extends BaseModel<Catalogue> {
     @prop({
@@ -40,14 +41,10 @@ export class Catalogue extends BaseModel<Catalogue> {
         default: DocumentStatus.ENABLED,
          })
     @Expose()
-    DocumentStatus: DocumentStatus | string;
+    DocumentStatus: DocumentStatus;
 
     static get model(): ModelType<Catalogue> {
         return new Catalogue().getModelForClass(Catalogue, { schemaOptions });
-    }
-
-    static get modelName(): string {
-        return this.model.modelName;
     }
 
     static createModel(): InstanceType<Catalogue> {

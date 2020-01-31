@@ -19,6 +19,7 @@ export class CatalogueService extends BaseService<Catalogue> {
     }
 
     async crateCatalogue(params: CatalogueVm): Promise<Catalogue> {
+
         const newCatalogue = Catalogue.createModel();
         newCatalogue.label = params.label;
         newCatalogue.value = params.value;
