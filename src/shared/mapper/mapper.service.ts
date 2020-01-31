@@ -8,6 +8,8 @@ import {Catalogue} from '../catalogue/models/catalogue.model';
 import {CatalogueVm} from '../catalogue/models/view-models/catalogue-vm.model';
 import {Product} from '../../availability/product/models/product.model';
 import {ProductVm} from '../../availability/product/models/product-vm.model';
+import {ItineraryDay} from '../../availability/itinerary-days/models/itinerary-day.model';
+import {ItineraryDayVm} from '../../availability/itinerary-days/models/itinerary-day-vm.model';
 
 @Injectable()
 export class MapperService {
@@ -24,6 +26,7 @@ export class MapperService {
         config.createMap(Todo, TodoVm);
         config.createMap(Catalogue, CatalogueVm);
         config.createMap(Product, ProductVm);
+        config.createMap(ItineraryDay, ItineraryDayVm);
     }
 
     private initializeMapper(): void {

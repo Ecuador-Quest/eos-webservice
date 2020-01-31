@@ -11,11 +11,14 @@ import { CustomerOrderController } from './customer-order/customer-order.control
 import { ProductService } from './product/product.service';
 import {MongooseModule} from '@nestjs/mongoose';
 import {Product} from './product/models/product.model';
+import { ItineraryDaysService } from './itinerary-days/itinerary-days.service';
+import {ItineraryDay} from './itinerary-days/models/itinerary-day.model';
 
 @Module({
   imports: [MongooseModule.forFeature(
       [
           { name: Product.modelName, schema: Product.model.schema},
+          { name: ItineraryDay.modelName, schema: ItineraryDay.model.schema},
       ]), HttpModule],
   controllers: [
       ItineraryOperationController,
@@ -26,6 +29,6 @@ import {Product} from './product/models/product.model';
     HoldSpacesController,
     HoldSpacesPaxController,
     CustomerOrderController],
-  providers: [AvailabilityService, ProductService],
+  providers: [AvailabilityService, ProductService, ItineraryDaysService],
 })
 export class AvailabilityModule {}
