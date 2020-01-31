@@ -10,7 +10,7 @@ import { HoldSpacesPaxController } from './hold-spaces-pax/hold-spaces-pax.contr
 import { CustomerOrderController } from './customer-order/customer-order.controller';
 import { ProductService } from './product/product.service';
 import {MongooseModule} from '@nestjs/mongoose';
-import {Product} from './product/product.model';
+import {Product} from './product/models/product.model';
 
 @Module({
   imports: [MongooseModule.forFeature(

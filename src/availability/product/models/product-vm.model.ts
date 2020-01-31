@@ -1,6 +1,6 @@
-import {BaseModelVm} from '../../shared/base.model';
+import {BaseModelVm} from '../../../shared/base.model';
 import {ApiModelProperty, ApiModelPropertyOptional} from '@nestjs/swagger';
-import {DocumentStatus} from '../../shared/configuration/documentStatus.enum';
+import {DocumentStatus} from '../../../shared/configuration/documentStatus.enum';
 import { Expose } from 'class-transformer';
 
 export class ProductVm extends BaseModelVm {
@@ -18,5 +18,5 @@ export class ProductVm extends BaseModelVm {
 
     @ApiModelProperty({ enum: DocumentStatus, example: DocumentStatus.ENABLED })
     @Expose()
-    DocumentStatus?: DocumentStatus;
+    documentStatus?: DocumentStatus;
 }

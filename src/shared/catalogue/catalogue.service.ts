@@ -26,7 +26,7 @@ export class CatalogueService extends BaseService<Catalogue> {
         newCatalogue.description = params.description;
         newCatalogue.order = params.order;
         newCatalogue.company = params.company;
-        newCatalogue.DocumentStatus = params.DocumentStatus;
+        newCatalogue.documentStatus = params.DocumentStatus;
         try {
             const result = await this.create(newCatalogue);
             return result.toJSON() as Catalogue;

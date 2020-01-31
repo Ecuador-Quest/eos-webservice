@@ -2,6 +2,7 @@ import { InstanceType, ModelType, prop } from 'typegoose';
 import { BaseModel, schemaOptions } from '../../shared/base.model';
 import { UserRole } from './user-role.enum';
 import { Expose } from 'class-transformer';
+import {DocumentStatus} from "../../shared/configuration/documentStatus.enum";
 
 export class User extends BaseModel<User> {
     @prop({
@@ -37,6 +38,9 @@ export class User extends BaseModel<User> {
         return `${this.firstName} ${this.lastName}`;
     }
 
+    @prop({ enum: DocumentStatus, default: DocumentStatus.ENABLED })
+    @Expose()
+    documentStatus: DocumentStatus;
     static get model(): ModelType<User> {
         return new User().getModelForClass(User, { schemaOptions });
     }

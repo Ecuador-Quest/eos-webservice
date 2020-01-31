@@ -1,10 +1,10 @@
 import {HttpService, Injectable, InternalServerErrorException} from '@nestjs/common';
 import {BaseService} from '../../shared/base.service';
-import {Product} from './product.model';
+import {Product} from './models/product.model';
 import {InjectModel} from '@nestjs/mongoose';
 import {MapperService} from '../../shared/mapper/mapper.service';
 import {ModelType} from 'typegoose';
-import {ProductVm} from '../view-models/product-vm.model';
+import {ProductVm} from './models/product-vm.model';
 
 @Injectable()
 export class ProductService extends BaseService<Product> {
@@ -18,12 +18,14 @@ export class ProductService extends BaseService<Product> {
         this._mapper = _mapperService.mapper;
     }
 
-    async crateCatalogue(params: ProductVm): Promise<Product> {
+    async createProduct(params: ProductVm): Promise<Product> {
 
         const newCatalogue = Product.createModel();
         newCatalogue.name = params.name;
         newCatalogue.description = params.description;
         newCatalogue.company = params.company;
+        newCatalogue.documentStatus = params.documentStatus;
+
         try {
             const result = await this.create(newCatalogue);
             return result.toJSON() as Product;

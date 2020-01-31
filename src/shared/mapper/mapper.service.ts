@@ -6,8 +6,8 @@ import { Todo } from '../../todo/models/todo.model';
 import { TodoVm } from '../../todo/models/view-models/todo-vm.model';
 import {Catalogue} from '../catalogue/models/catalogue.model';
 import {CatalogueVm} from '../catalogue/models/view-models/catalogue-vm.model';
-import {Product} from '../../availability/product/product.model';
-import {ProductVm} from '../../availability/view-models/product-vm.model';
+import {Product} from '../../availability/product/models/product.model';
+import {ProductVm} from '../../availability/product/models/product-vm.model';
 
 @Injectable()
 export class MapperService {

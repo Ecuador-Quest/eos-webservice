@@ -35,13 +35,10 @@ export class Catalogue extends BaseModel<Catalogue> {
     @Expose()
     company: string;
 
-    @prop({
-        required: true,
-        enum: DocumentStatus,
-        default: DocumentStatus.ENABLED,
-         })
+    @prop({ enum: DocumentStatus, default: DocumentStatus.ENABLED })
     @Expose()
-    DocumentStatus: DocumentStatus;
+    documentStatus: DocumentStatus;
+
 
     static get model(): ModelType<Catalogue> {
         return new Catalogue().getModelForClass(Catalogue, { schemaOptions });

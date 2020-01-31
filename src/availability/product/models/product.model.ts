@@ -1,7 +1,7 @@
 import {InstanceType, ModelType, prop} from 'typegoose';
 import { Expose } from 'class-transformer';
-import {BaseModel, schemaOptions} from '../../shared/base.model';
-import {DocumentStatus} from '../../shared/configuration/documentStatus.enum';
+import {BaseModel, schemaOptions} from '../../../shared/base.model';
+import {DocumentStatus} from '../../../shared/configuration/documentStatus.enum';
 
 export class Product extends BaseModel<Product> {
     @prop({
@@ -22,6 +22,9 @@ export class Product extends BaseModel<Product> {
     @Expose()
     company: string;
 
+    @prop({ enum: DocumentStatus, default: DocumentStatus.ENABLED })
+    @Expose()
+    documentStatus: DocumentStatus;
 
     static get model(): ModelType<Product> {
         return new Product().getModelForClass(Product, { schemaOptions });
