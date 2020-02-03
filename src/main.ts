@@ -20,7 +20,7 @@ async function bootstrap() {
 
     const swaggerDoc = SwaggerModule.createDocument(app, swaggerOptions);
 
-    SwaggerModule.setup('/api/docs', app, swaggerDoc, {
+    SwaggerModule.setup('/api/docs_eos', app, swaggerDoc, {
         swaggerUrl: `${hostDomain}/api/docs-json`,
         explorer: true,
         swaggerOptions: {
