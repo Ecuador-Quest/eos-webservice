@@ -3,7 +3,8 @@ import { InstanceType, ModelType, Typegoose } from 'typegoose';
 import { AutoMapper, Constructable } from 'automapper-nartc';
 import {MongoError} from 'mongodb';
 import {InternalServerErrorException} from '@nestjs/common';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
+import {map, switchMap, tap} from 'rxjs/operators';
 
 export abstract class BaseService<T extends Typegoose> {
     protected _model: ModelType< T>;
@@ -53,6 +54,17 @@ export abstract class BaseService<T extends Typegoose> {
         }
     }
 
+    // tslint:disable-next-line:no-shadowed-variable
+    public find_One<T>(filter = {}): Observable<T> {
+        return of(1).pipe(
+            switchMap(  async () => {
+                return this._model.findOne(filter).exec();
+            } ),
+            map( (output: any ) => {
+                return output;
+            }),
+        );
+    }
     async findById(id: string): Promise<InstanceType<T>> {
         try {
         return this._model.findById(this.toObjectId(id)).exec();

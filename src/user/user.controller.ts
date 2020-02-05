@@ -8,6 +8,7 @@ import { LoginVm } from './models/view-models/login-vm.model';
 import { RegisterVm } from './models/view-models/register-vm.model';
 import { UserVm } from './models/view-models/user-vm.model';
 import { UserService } from './user.service';
+import {Observable} from "rxjs";
 
 @Controller('user')
 @ApiUseTags(User.modelName)
@@ -49,7 +50,7 @@ export class UserController {
     @ApiCreatedResponse({ type: LoginResponseVm })
     @ApiBadRequestResponse({ type: ApiException })
     @ApiOperation(GetOperationId(User.modelName, 'Login'))
-    async login(@Body() vm: LoginVm): Promise<LoginResponseVm> {
+    login(@Body() vm: LoginVm): Observable<LoginResponseVm> {
         const fields = Object.keys(vm);
         fields.forEach(field => {
             if (!vm[field]) {

@@ -11,6 +11,8 @@ import { LoginResponseVm } from './models/view-models/login-response-vm.model';
 import { LoginVm } from './models/view-models/login-vm.model';
 import { RegisterVm } from './models/view-models/register-vm.model';
 import { UserVm } from './models/view-models/user-vm.model';
+import {map, switchMap} from 'rxjs/operators';
+import {forkJoin, from, Observable, of} from 'rxjs';
 
 @Injectable()
 export class UserService extends BaseService<User> {
@@ -44,34 +46,41 @@ export class UserService extends BaseService<User> {
         }
     }
 
-    async login(vm: LoginVm): Promise<LoginResponseVm> {
+    login(vm: LoginVm): Observable<any> {
         const { username, password } = vm;
+        return this.find_One<User>({username}).pipe(
+            map( (data: User) => {
+                if (!data) { throw new HttpException('Invalid crendentials', HttpStatus.NOT_FOUND); }
+                return data;
+            }),
+            switchMap(  (user: User) => {
+                    // tslint:disable-next-line:no-shadowed-variable
+                    const payload: JwtPayload = {
+                        username: user.username,
+                        role: user.role,
+                    };
+                    return  forkJoin([
+                               of(user),
+                               from(compare(password, user.password)),
+                               from(this._authService.signPayload(payload)), // token
+                               from(this.map(user, User, UserVm)),
+                           ]);
+            },
+            ),
+            map( (data: [User, boolean, string, UserVm ]) => {
+                if (!data[1]) {
+                    throw new HttpException('Invalid crendentials', HttpStatus.BAD_REQUEST);
+                }
+                const token = data[2] ;
+                const userVm: UserVm = data[3];
+                const loginResponse: LoginResponseVm = {
+                    token,
+                    user: userVm,
+                };
+                return loginResponse;
+            }),
+        );
 
-        const user = await this.findOne({ username });
-
-        if (!user) {
-            throw new HttpException('Invalid crendentials', HttpStatus.NOT_FOUND);
-        }
-
-        const isMatch = await compare(password, user.password);
-
-        if (!isMatch) {
-            throw new HttpException('Invalid crendentials', HttpStatus.BAD_REQUEST);
-        }
-
-        const payload: JwtPayload = {
-            username: user.username,
-            role: user.role,
-        };
-
-        const token = await this._authService.signPayload(payload);
-        
-        console.log(user);
-
-        const userVm: UserVm = await this.map(user.toJSON(), User, UserVm);
-        return {
-            token,
-            user: userVm,
-        };
     }
+
 }
