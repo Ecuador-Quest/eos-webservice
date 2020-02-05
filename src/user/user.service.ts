@@ -11,8 +11,8 @@ import { LoginResponseVm } from './models/view-models/login-response-vm.model';
 import { LoginVm } from './models/view-models/login-vm.model';
 import { RegisterVm } from './models/view-models/register-vm.model';
 import { UserVm } from './models/view-models/user-vm.model';
-import {map, switchMap} from 'rxjs/operators';
-import {forkJoin, from, Observable, of} from 'rxjs';
+import {catchError, map, switchMap} from 'rxjs/operators';
+import {forkJoin, from, Observable, of, throwError} from 'rxjs';
 
 @Injectable()
 export class UserService extends BaseService<User> {
@@ -27,26 +27,32 @@ export class UserService extends BaseService<User> {
         this._mapper = _mapperService.mapper;
     }
 
-    async register(vm: RegisterVm) {
+    public register(vm: RegisterVm): Observable<UserVm> {
         const { username, password, firstName, lastName } = vm;
-
         const newUser = User.createModel();
         newUser.username = username.trim().toLowerCase();
         newUser.firstName = firstName;
         newUser.lastName = lastName;
+        return from(genSalt(10)).pipe(
+            switchMap( (salt: string) =>
+            from( hash(password, salt))),
+            // tslint:disable-next-line:no-shadowed-variable
+            switchMap( (password: string) => {
+                    newUser.password = password;
 
-        const salt = await genSalt(10);
-        newUser.password = await hash(password, salt);
+                    return from(this.create(newUser)).pipe(
+                        switchMap ( (user: User ) => this.map(newUser, User, UserVm) ),
+                    );
+                },
+            ),
+            catchError( (error: Error) =>
+                throwError(new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR)),
+            ),
+        );
 
-        try {
-            const result = await this.create(newUser);
-            return result.toJSON() as User;
-        } catch (e) {
-            throw new HttpException(e, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
     }
 
-    login(vm: LoginVm): Observable<any> {
+    public login(vm: LoginVm): Observable<LoginResponseVm> {
         const { username, password } = vm;
         return this.find_One<User>({username}).pipe(
             map( (data: User) => {

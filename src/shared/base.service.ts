@@ -81,6 +81,18 @@ export abstract class BaseService<T extends Typegoose> {
         }
     }
 
+    // tslint:disable-next-line:no-shadowed-variable
+    public create_obser<T>( item: InstanceType<T> ): Observable<T> {
+        return of(1).pipe(
+            switchMap(  async () => {
+                return this._model.create(item);
+            } ),
+            map( (output: any ) => {
+                return output;
+            }),
+        );
+    }
+
     async delete(id: string): Promise<InstanceType<T>> {
         try {
             return this._model.findByIdAndRemove(this.toObjectId(id)).exec();
