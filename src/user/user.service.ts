@@ -40,8 +40,8 @@ export class UserService extends BaseService<User> {
             switchMap( (password: string) => {
                     newUser.password = password;
 
-                    return from(this.create(newUser)).pipe(
-                        switchMap ( (user: User ) => this.map(newUser, User, UserVm) ),
+                    return this.create_obser(newUser).pipe(
+                        switchMap ( () => this.map(newUser, User, UserVm) ),
                     );
                 },
             ),

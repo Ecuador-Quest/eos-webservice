@@ -26,5 +26,5 @@ export class CatalogueVm extends BaseModelVm {
 
     @ApiModelProperty()
     @Expose()
-    DocumentStatus?: DocumentStatus;
+    documentStatus?: DocumentStatus;
 }

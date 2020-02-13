@@ -5,6 +5,8 @@ import {InjectModel} from '@nestjs/mongoose';
 import {ModelType} from 'typegoose';
 import {MapperService} from '../mapper/mapper.service';
 import {CatalogueVm} from './models/view-models/catalogue-vm.model';
+import {Observable, throwError} from 'rxjs';
+import {catchError, map, switchMap} from 'rxjs/operators';
 
 @Injectable()
 export class CatalogueService extends BaseService<Catalogue> {
@@ -18,7 +20,7 @@ export class CatalogueService extends BaseService<Catalogue> {
         this._mapper = _mapperService.mapper;
     }
 
-    async crateCatalogue(params: CatalogueVm): Promise<Catalogue> {
+    public createCatalogue(params: CatalogueVm): Observable<CatalogueVm> {
 
         const newCatalogue = Catalogue.createModel();
         newCatalogue.label = params.label;
@@ -26,12 +28,12 @@ export class CatalogueService extends BaseService<Catalogue> {
         newCatalogue.description = params.description;
         newCatalogue.order = params.order;
         newCatalogue.company = params.company;
-        newCatalogue.documentStatus = params.DocumentStatus;
-        try {
-            const result = await this.create(newCatalogue);
-            return result.toJSON() as Catalogue;
-        } catch (e) {
-            throw new InternalServerErrorException(e);
-        }
+        newCatalogue.documentStatus = params.documentStatus;
+        return this.create_obser(newCatalogue).pipe(
+            switchMap( () => this.map(newCatalogue, Catalogue, CatalogueVm)),
+            catchError( (error: Error) =>
+            throwError(new InternalServerErrorException(error))),
+    );
     }
 }
+

@@ -10,6 +10,7 @@ import {AuthGuard} from '@nestjs/passport';
 import {RolesGuard} from '../guards/roles.guard';
 import {Catalogue} from './models/catalogue.model';
 import {CatalogueParams} from './models/view-models/catalogue-params.model';
+import {Observable} from "rxjs";
 
 @Controller('catalogue')
 @ApiUseTags(Catalogue.modelName)
@@ -23,10 +24,9 @@ export class CatalogueController {
     @ApiCreatedResponse({ type: CatalogueVm })
     // @ApiBadRequestResponse({ type: ApiException })
     @ApiOperation(GetOperationId(Catalogue.modelName, 'Create'))
-    async create(@Body() params: CatalogueParams): Promise<CatalogueVm> {
+    public create(@Body() params: CatalogueParams): Observable<CatalogueVm> {
         try {
-            const newCatalogue = await this._catalogueService.crateCatalogue(params);
-            return this._catalogueService.map(newCatalogue, Catalogue, CatalogueVm);
+            return this._catalogueService.createCatalogue(params);
         } catch (e) {
             throw new HttpException(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
