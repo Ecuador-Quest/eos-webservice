@@ -32,7 +32,7 @@ async function bootstrap() {
 
     app.setGlobalPrefix('api');
     app.useGlobalFilters(new HttpExceptionFilter());
-
+    app.enableCors();
     await app.listen(AppModule.port);
 }
 
